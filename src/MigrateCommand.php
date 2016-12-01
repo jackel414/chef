@@ -11,8 +11,8 @@ class MigrateCommand extends Command
 
     protected function configure()
     {
-    	$this->setName('migrate')
-    		 ->setDescription('Run the database migrations')
+        $this->setName('migrate')
+             ->setDescription('Run the database migrations')
              ->addOption(
                     'database',
                     null,
@@ -30,9 +30,9 @@ class MigrateCommand extends Command
         $this->runMigration($path);
 
         foreach ( $this->notes as $note ) {
-			$output->writeln($note);
+            $output->writeln($note);
         }
-	}
+    }
 
     /**
      * Prepare the migration database for running.
@@ -41,15 +41,15 @@ class MigrateCommand extends Command
      */
     protected function prepareDatabase()
     {
-		$dsn = 'mysql:dbname=chef_test;host=127.0.0.1;port=8889';
-		$user = 'root';
-		$password = 'root';
+        $dsn = 'mysql:dbname=chef_test;host=127.0.0.1;port=8889';
+        $user = 'root';
+        $password = 'root';
 
-		try {
-		    $this->dbh = new PDO($dsn, $user, $password);
-		} catch (PDOException $e) {
-		    echo 'Connection failed: ' . $e->getMessage();
-		}
+        try {
+            $this->dbh = new PDO($dsn, $user, $password);
+        } catch (PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+        }
     }
 
     protected function getMigrationPath()

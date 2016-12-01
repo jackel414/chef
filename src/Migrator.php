@@ -58,7 +58,7 @@ trait Migrator
         $migration = $this->resolve($file);
 
         $sql = $migration->up();
-		
+        
         $error = false;
         try {
             $this->dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );//Error Handling

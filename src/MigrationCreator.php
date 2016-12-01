@@ -33,9 +33,7 @@ trait MigrationCreator
     {
         if (is_null($table)) {
             return $this->fileGet($this->getStubPath().'/blank.stub');
-        }
-
-        else {
+        } else {
             $stub = $create ? 'create.stub' : 'update.stub';
 
             return $this->fileGet($this->getStubPath()."/{$stub}");

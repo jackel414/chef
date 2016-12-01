@@ -9,7 +9,12 @@ class DummyClass
      */
     public function up()
     {
-        return "";
+        return "CREATE TABLE `DummyTable` (
+                      `id` int(11) NOT NULL AUTO_INCREMENT,
+                      `created` datetime NOT NULL,
+                      `modified` datetime NOT NULL,
+                      PRIMARY KEY (`id`)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
     }
 
     /**
@@ -19,6 +24,6 @@ class DummyClass
      */
     public function down()
     {
-        return "";
+        return "DROP TABLE `DummyTable`";
     }
 }

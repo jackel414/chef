@@ -9,7 +9,7 @@ class DummyClass
      */
     public function up()
     {
-        return "";
+        return "ALTER TABLE `<table>` ADD `<column>` VARCHAR(255) NULL DEFAULT NULL AFTER `<existing_column>`";
     }
 
     /**
@@ -19,6 +19,6 @@ class DummyClass
      */
     public function down()
     {
-        return "";
+        return "ALTER TABLE `<table>` DROP COLUMN `<column>`";
     }
 }

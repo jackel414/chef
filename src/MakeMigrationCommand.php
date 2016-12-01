@@ -12,9 +12,9 @@ class MakeMigrationCommand extends Command
 
     protected function configure()
     {
-    	$this->setName('make:migration')
-    		 ->setDescription('Create a new migration file')
-    		 ->addArgument(
+        $this->setName('make:migration')
+             ->setDescription('Create a new migration file')
+             ->addArgument(
                     'name', InputArgument::REQUIRED, 'The name of the migration.'
                 )
              ->addOption(
@@ -37,7 +37,13 @@ class MakeMigrationCommand extends Command
         
         $name = $input->getArgument('name');
         $table = $input->getOption('table');
-        $create = $input->getOption('create');
+        $create = $input->getOption('create') ?: false;
+
+        if (! $table && is_string($create)) {
+            $table = $create;
+
+            $create = true;
+        }
 
         $file = pathinfo($this->create($name, $path, $table, $create), PATHINFO_FILENAME);
 
