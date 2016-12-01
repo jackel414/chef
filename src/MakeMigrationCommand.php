@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MakeMigrationCommand extends Command
 {
-    use MigrationCreator;
+    use MigrationCreator, EnvironmentVariables;
 
     protected function configure()
     {
