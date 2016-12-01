@@ -1,0 +1,24 @@
+<?php
+
+class DummyClass
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        return "";
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        return "";
+    }
+}
