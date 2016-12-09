@@ -56,6 +56,16 @@ class MigrateCommand extends Command
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
         }
+
+        // check for migrations table and create one if it doesn't exist
+        $this->prepareMigrationsTable();
+    }
+
+    protected function prepareMigrationsTable()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `migrations` (`migration` varchar(255) NOT NULL, `run` datetime NOT NULL)";
+
+        $this->dbh->exec($sql);
     }
 
     protected function getMigrationPath()
