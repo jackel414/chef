@@ -15,8 +15,8 @@ trait Migrator
 
         $files = $this->getMigrationFiles($path);
 
-        //check if migrations have already been run.
-        $ran = array();
+        // check for migrations that have already been run.
+        $ran = $this->getRan();
 
         $migrations = array_diff($files, $ran);
 
@@ -69,9 +69,13 @@ trait Migrator
 
         if ( $error ) {
             $this->note("<error>Error in file:</error> $file");
-        } else {
-            $this->note("<info>Migrated:</info> $file");
+            return false;
         }
+
+        // once the migration has run successfully, log it so it isn't run again later
+        $this->log($file);
+
+        $this->note("<info>Migrated:</info> $file");
     }
 
     /**
@@ -96,6 +100,36 @@ trait Migrator
         sort($files);
 
         return $files;
+    }
+
+    /**
+     * Get the ran migrations.
+     *
+     * @return array
+     */
+    public function getRan()
+    {
+        $sql = "SELECT migration FROM migrations ORDER BY migration ASC";
+
+        $migrations = array();
+        foreach ($this->dbh->query($sql) as $row) {
+            $migrations[] = $row['migration'];
+        }
+
+        return $migrations;
+    }
+
+    /**
+     * Log that a migration was run.
+     *
+     * @param  string  $file
+     * @return void
+     */
+    public function log($file)
+    {
+        $sql = "INSERT INTO migrations(migration,run) VALUES('$file', NOW())";
+
+        $this->dbh->exec($sql);
     }
 
     /**
